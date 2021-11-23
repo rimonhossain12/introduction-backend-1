@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
+app.use(cors());
+app.use(express.json());
 
 app.get('/',(req,res) => {
     res.send('Hello I am learning node js');
@@ -29,11 +33,19 @@ app.get('/users',(req,res) => {
  
 })
 
+// receive data from client server
+app.post('/users',(req,res) => {
+    const newUser = req.body;
+    newUser.id = users.length;
+    users.push(users);
+    res.json(newUser);
+})
+
 app.get('/users/:id',(req,res) => {
     console.log(req.params.id);
     const findIndex = req.params.id;
     const user = users[findIndex];
-    res.send(users);
+    res.send(user);
 })
 
 app.get('/fruits/mango',(req,res) => {
